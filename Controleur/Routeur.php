@@ -1,7 +1,6 @@
 <?php
 
 require_once 'Controleur/ControleurAccueil.php';
-require_once 'Controleur/ControleurTest.php';
 require_once 'Controleur/ControleurUser.php';
 require_once 'Vue/Vue.php';
 class Routeur {
