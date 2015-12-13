@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Controleur/ControleurAccueil.php';
+require_once 'Controleur/ControleurTest.php';
 require_once 'Vue/Vue.php';
 class Routeur {
 
@@ -20,6 +21,10 @@ class Routeur {
                     $password = $this->getParametre($_POST, 'password');
                     $this->ctrlUser->connect($pseudo, $password);
                 }
+				else if ($_GET['action'] == 'test') {
+					$ctrlTest = new ControleurTest();
+					$ctrlTest->test('Toto');
+				}
                 else
                     throw new Exception("Action non valide");
             }
