@@ -1,0 +1,1 @@
+<?php $this->titre = "Quiz Constructor - Inscription"; ?>

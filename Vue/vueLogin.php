@@ -1,4 +1,4 @@
-<?php $this->titre = "QuizzWeb - Login"; ?>
+<?php $this->titre = "Quiz Constructor - Login"; ?>
 
 <?php $this->ajoutStyleSheet = "<link href=\"Contenu/loginSheet.css\" rel=\"stylesheet\" />"; ?>
 
