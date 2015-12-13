@@ -2,7 +2,7 @@
 
 require_once 'Vue/Vue.php';
 
-class ControleurAccueil {
+class ControleurUser {
 
     public function __construct() {
     }

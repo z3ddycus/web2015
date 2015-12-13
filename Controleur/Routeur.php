@@ -33,8 +33,8 @@ class Routeur {
                     throw new Exception("erreur 404");
             }
             else {  // aucune action définie : affichage de l'accueil
-                if ($ctrlAccueil == NULL) {
-                    $ctrlAccueil = New ControleurAccueil();
+                if ($this->ctrlAccueil == NULL) {
+                    $this->ctrlAccueil = New ControleurAccueil();
                 }
                 $this->ctrlAccueil->accueil();
             }
