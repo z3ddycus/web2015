@@ -23,13 +23,6 @@ class Routeur {
                         $this->ctrlUser = New ControleurUser();
                     }
                     $this->ctrlUser->login();
-                }else
-                    throw new Exception("erreur 404");
-                if ($_GET['action'] == 'login') {
-                    if ($ctrlUser == NULL) {
-                        $ctrlUser = new ControleurUser();
-                        $this->ctrlUser->login();
-                    }
                 }
 				else if ($_GET['action'] == 'test') {
 					$ctrlTest = new ControleurTest();

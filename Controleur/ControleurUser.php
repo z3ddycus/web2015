@@ -12,6 +12,17 @@ class ControleurUser {
         $vue->generer(array());
     }
 
+    public function loginTraitement() {
+    	$user = New User();
+    	if ($user->getUser(htmlspecialchars($_POST['pseudo']), htmlspecialchars($_POST['password'])) == NULL) {
+    		$_SESSION['user'] = $user;
+	    	$vue = new Vue("Acceuil");
+	        $vue->generer(array('message'=>"Vous êtes connecté. <3"));
+    	} else {
+
+    	}
+    }
+
 }
 
 ?>
