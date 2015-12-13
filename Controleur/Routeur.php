@@ -21,8 +21,8 @@ class Routeur {
                 if ($_GET['action'] == 'login') {
                     if ($this->ctrlUser == NULL) {
                         $this->ctrlUser = New ControleurUser();
-                        $this->ctrlUser->login();
                     }
+                    $this->ctrlUser->login();
                 }else
                     throw new Exception("erreur 404");
             }
