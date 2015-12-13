@@ -1,3 +1,3 @@
-<?php $this->titre = "titre"; ?>
+<?php $this->titre = "Quiz Constructor"; ?>
 
 <? //contenu ?>
