@@ -5,27 +5,32 @@ require_once 'Vue/Vue.php';
 class Routeur {
 
     private $ctrlAccueil;
+    private $ctrlUser;
 
     public function __construct() {
        // $this->ctrlUser = new ControleurBillet();
-        $this->ctrlAccueil = new ControleurAccueil();
+        $this->ctrlAccueil = NULL;
+        $this->ctrlUser = NULL;
     }
 
     // Route une requête entrante : exécution l'action associée
     public function routerRequete() {
         try {
             if (isset($_GET['action'])) {
+                // page login
                 if ($_GET['action'] == 'login') {
-                    $pseudo = $this->getParametre($_POST, 'pseudo');
-                    $password = $this->getParametre($_POST, 'password');
-                    $this->ctrlUser->connect($pseudo, $password);
-                }
-                else
-                    throw new Exception("Action non valide");
+                    if ($ctrlUser == NULL) {
+                        $ctrlUser = New ControleurUser();
+                        $this->ctrlUser->login();
+                    }
+                }else
+                    throw new Exception("erreur 404");
             }
             else {  // aucune action définie : affichage de l'accueil
+                if ($ctrlAccueil == NULL) {
+                    $ctrlAccueil = New ControleurAccueil();
+                }
                 $this->ctrlAccueil->accueil();
-                    throw new Exception("Action non valide");
             }
         }
         catch (Exception $e) {

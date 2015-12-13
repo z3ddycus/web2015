@@ -7,9 +7,11 @@ class ControleurAccueil {
     public function __construct() {
     }
 
-// Affiche la liste de tous les billets du blog
-    public function accueil() {
+    public function login() {
+    	$vue = new Vue("Login");
+        $vue->generer(array());
     }
 
 }
 
+?>
