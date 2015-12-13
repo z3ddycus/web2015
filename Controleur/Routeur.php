@@ -1,12 +1,12 @@
 <?php
 
 require_once 'Controleur/ControleurAccueil.php';
+require_once 'Controleur/ControleurTest.php';
 require_once 'Controleur/ControleurUser.php';
 require_once 'Vue/Vue.php';
 class Routeur {
 
     private $ctrlAccueil;
-    private $ctrlUser;
 
     public function __construct() {
         $this->ctrlAccueil = NULL;
@@ -24,6 +24,18 @@ class Routeur {
                     }
                     $this->ctrlUser->login();
                 }else
+                    throw new Exception("erreur 404");
+                if ($_GET['action'] == 'login') {
+                    if ($ctrlUser == NULL) {
+                        $ctrlUser = new ControleurUser();
+                        $this->ctrlUser->login();
+                    }
+                }
+				else if ($_GET['action'] == 'test') {
+					$ctrlTest = new ControleurTest();
+					$ctrlTest->test('Toto');
+				}
+				else
                     throw new Exception("erreur 404");
             }
             else {  // aucune action définie : affichage de l'accueil
