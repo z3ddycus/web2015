@@ -16,10 +16,11 @@ class ControleurUser {
     	$user = New User();
     	if ($user->getUser(htmlspecialchars($_POST['pseudo']), htmlspecialchars($_POST['password'])) == NULL) {
     		$_SESSION['user'] = $user;
-	    	$vue = new Vue("Acceuil");
+            $vue = new Vue("Accueil");
 	        $vue->generer(array('message'=>"Vous êtes connecté. <3"));
     	} else {
-
+            $vue = new Vue("Login");
+            $vue->generer(array('message'=>"Les identifiants sont incorrects. </3"));
     	}
     }
 

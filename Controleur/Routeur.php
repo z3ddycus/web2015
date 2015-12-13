@@ -3,9 +3,11 @@
 require_once 'Controleur/ControleurAccueil.php';
 require_once 'Controleur/ControleurUser.php';
 require_once 'Vue/Vue.php';
+
 class Routeur {
 
     private $ctrlAccueil;
+    private $ctrlUser;
 
     public function __construct() {
         $this->ctrlAccueil = NULL;
@@ -15,22 +17,28 @@ class Routeur {
     // Route une requête entrante : exécution l'action associée
     public function routerRequete() {
         try {
-            if (isset($_GET['action'])) {
-                // page login
+            if (isset($_GET['action'])) 
+            {
                 if ($_GET['action'] == 'login') {
                     if ($this->ctrlUser == NULL) {
                         $this->ctrlUser = New ControleurUser();
                     }
                     $this->ctrlUser->login();
                 }
-				else if ($_GET['action'] == 'test') {
-					$ctrlTest = new ControleurTest();
-					$ctrlTest->test('Toto');
-				}
-				else
-                    throw new Exception("erreur 404");
+				else throw new Exception("erreur 404");
+            } 
+            else if (isset($_GET['traitement'])) 
+            {
+                if ($_GET['traitement'] == 'login') {
+                    if ($this->ctrlUser == NULL) {
+                        $this->ctrlUser = New ControleurUser();
+                    }
+                    $this->ctrlUser->loginTraitement();
+                } else throw new Exception("erreur 404");
+
             }
-            else {  // aucune action définie : affichage de l'accueil
+            else 
+            {
                 if ($this->ctrlAccueil == NULL) {
                     $this->ctrlAccueil = New ControleurAccueil();
                 }
