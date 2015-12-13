@@ -5,5 +5,4 @@
 	<label for="password"><input type="password" name="password" id="password" required /></label>
 	<input type="submit" value="Se connecter"/>
 
-	<p id="messageInformationFormulaire"><?= message ?></p>
 </form>
