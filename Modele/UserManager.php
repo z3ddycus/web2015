@@ -5,7 +5,7 @@ require_once 'Modele/Modele.php';
 /**
  * Gère les utilisateurs.
  */
-class userManager extends Modele {
+class userManager extends Modele { 
 
     /** Renvoie la liste des billets du blog
      * 
