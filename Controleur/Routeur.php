@@ -1,41 +1,31 @@
 <?php
 
 require_once 'Controleur/ControleurAccueil.php';
-require_once 'Controleur/ControleurBillet.php';
 require_once 'Vue/Vue.php';
 class Routeur {
 
     private $ctrlAccueil;
-    private $ctrlBillet;
 
     public function __construct() {
+       // $this->ctrlUser = new ControleurBillet();
         $this->ctrlAccueil = new ControleurAccueil();
-        $this->ctrlBillet = new ControleurBillet();
     }
 
     // Route une requête entrante : exécution l'action associée
     public function routerRequete() {
         try {
             if (isset($_GET['action'])) {
-                if ($_GET['action'] == 'billet') {
-                    $idBillet = intval($this->getParametre($_GET, 'id'));
-                    if ($idBillet != 0) {
-                        $this->ctrlBillet->billet($idBillet);
-                    }
-                    else
-                        throw new Exception("Identifiant de billet non valide");
-                }
-                else if ($_GET['action'] == 'commenter') {
-                    $auteur = $this->getParametre($_POST, 'auteur');
-                    $contenu = $this->getParametre($_POST, 'contenu');
-                    $idBillet = $this->getParametre($_POST, 'id');
-                    $this->ctrlBillet->commenter($auteur, $contenu, $idBillet);
+                if ($_GET['action'] == 'login') {
+                    $pseudo = $this->getParametre($_POST, 'pseudo');
+                    $password = $this->getParametre($_POST, 'password');
+                    $this->ctrlUser->connect($pseudo, $password);
                 }
                 else
                     throw new Exception("Action non valide");
             }
             else {  // aucune action définie : affichage de l'accueil
                 $this->ctrlAccueil->accueil();
+                    throw new Exception("Action non valide");
             }
         }
         catch (Exception $e) {

@@ -6,15 +6,15 @@
         <title><?= $titre ?></title>
     </head>
     <body>
-        <div id="global">
+        <div id="generalBody">
             <header>
-                <a href="index.php"><h1 id="titreBlog">Mon Blog</h1></a>
+                <a href="index.php"><h1 id="QuizzWeb">Mon Blog</h1></a>
                 <p>Je vous souhaite la bienvenue sur ce modeste blog.</p>
             </header>
-            <div id="contenu">
+            <div id="content">
                 <?= $contenu ?>
             </div> <!-- #contenu -->
-            <footer id="piedBlog">
+            <footer id="footer">
                 Blog réalisé avec PHP, HTML5 et CSS.
             </footer>
         </div> <!-- #global -->
