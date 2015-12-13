@@ -7,10 +7,14 @@ class Vue {
     
     // Titre de la vue (défini dans le fichier vue)
     private $titre;
+	
+	// Feuilles de style supplémentaires (défini dans le fichier vue)
+	private $ajoutStyleSheet;
 
     public function __construct($action) {
         // Détermination du nom du fichier vue à partir de l'action
         $this->fichier = "Vue/vue" . $action . ".php";
+		$this->ajoutStyleSheet = "";
     }
 
     // Génère et affiche la vue
@@ -19,7 +23,7 @@ class Vue {
         $contenu = $this->genererFichier($this->fichier, $donnees);
         // Génération du gabarit commun utilisant la partie spécifique
         $vue = $this->genererFichier('Vue/gabarit.php',
-                array('titre' => $this->titre, 'contenu' => $contenu));
+                array('titre' => $this->titre, 'contenu' => $contenu, 'ajoutStyleSheet' => $this->ajoutStyleSheet));
         // Renvoi de la vue au navigateur
         echo $vue;
     }

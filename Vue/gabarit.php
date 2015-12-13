@@ -9,7 +9,9 @@
 		
 		<!-- Custom CSS page -->
 		<link href="Contenu/principalSheet.css" rel="stylesheet" />
+		<?= $ajoutStyleSheet ?>
 		
+		<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 		<script src="bootstrap/js/jquery.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
         <title><?= $titre ?></title>
@@ -27,8 +29,10 @@
 					</button>
 					<a class="navbar-brand" href="index.php">Quiz Constructor</a>
 				</div>
-				<div id="navbar" class="collapse navbar-collapse">
+				<div id="navbar" class="collapse navbar-collapse navbar-right">
 					<ul class="nav navbar-nav">
+					    <li><a href="#">Quizz</a></li>
+						<li><a href="#">S'inscrire</a></li>
 						<li><a href="index.php?action=login">Login</a></li>
 					</ul>
 				</div>
