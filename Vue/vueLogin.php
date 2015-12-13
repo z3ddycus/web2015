@@ -15,7 +15,7 @@
                     
             <form action="index.php?traitement=login" id="loginForm"  name="login" role="form" class="form-horizontal" method="post" accept-charset="utf-8">
                 <div class="form-group">
-                <div class="col-md-8"><label for="pseudo"><input name="username" placeholder="Identifiant" class="form-control" type="text"  id="pseudo" required /></label></div>
+                <div class="col-md-8"><label for="login"><input name="login" placeholder="Identifiant" class="form-control" type="text"  id="login" required /></label></div>
                 </div> 
                 
                 <div class="form-group">

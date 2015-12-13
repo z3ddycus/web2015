@@ -24,14 +24,14 @@ class userManager extends Modele {
      * @throws Exception Si l'identifiant du billet est inconnu
      */
     public function getUser($pseudo, $password) {
-        $sql = 'select * from user where pseudo=?';
+        $sql = 'select id,pseudo,password from user where pseudo=?';
         $users = $this->executerRequete($sql, array($pseudo));
         if ($users->rowCount() > 0) {
             if ($users->rowCount() > 1) {
                 throw new Exception("La bdd est corrompu plusieurs utilisateurs possèdent le même pseudo");   
             } else {
                 $result = $users->fetch();
-                if (true) {//password_verify ($password , $result->password)) {
+                if (password_verify ($password , $result['password'])) {
                     return $result;
                 } else {
                     throw new Exception("Le mot de passe est incorrect");   
