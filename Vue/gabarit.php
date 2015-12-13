@@ -31,9 +31,8 @@
 				</div>
 				<div id="navbar" class="collapse navbar-collapse navbar-right">
 					<ul class="nav navbar-nav">
-					    <li><a href="#">Quizz</a></li>
-						<li><a href="#">S'inscrire</a></li>
-						<li><a href="index.php?action=login">Login</a></li>
+					    <li><a href="#">Liste des quiz</a></li>
+						<?php include 'loginNav.php'; ?>
 					</ul>
 				</div>
 			</div>
