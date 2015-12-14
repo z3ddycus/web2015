@@ -37,7 +37,7 @@ class ControleurUser {
         	}
         } else {
             $vue = new Vue("Login");
-            $vue->generer(array('message'=>"Les champs ne sont pas remplies"));
+            $vue->generer(array('message'=>"Les champs ne sont pas remplis"));
         }
     }
 
@@ -59,7 +59,7 @@ class ControleurUser {
             }
         } else {
             $vue = new Vue("Inscription");
-            $vue->generer(array('message'=>"Les champs ne sont pas remplies"));
+            $vue->generer(array('message'=>"Les champs ne sont pas remplis"));
         }
     }
 
@@ -69,6 +69,12 @@ class ControleurUser {
         $vue->generer(array('message'=>"Vous avez été déconnecté"));
     }
 
+	
+	public function users() {
+        $vue = new Vue("Users");
+		$userManager = New UserManager();
+        $vue->generer(array('users' => $userManager->getUsers()));
+    }
 }
 
 ?>
