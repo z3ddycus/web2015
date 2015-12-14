@@ -63,6 +63,12 @@ class ControleurUser {
         }
     }
 
+    public function logoff() {
+        unset($_SESSION['user']);
+        $vue = new Vue("Accueil");
+        $vue->generer(array('message'=>"Vous avez été déconnecté"));
+    }
+
 }
 
 ?>
