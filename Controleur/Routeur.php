@@ -33,6 +33,13 @@ class Routeur {
                     }
                     $this->ctrlUser->inscription();
                 }
+				else if ($_GET['action'] == 'users') 
+                {
+                    if ($this->ctrlUser == NULL) {
+                        $this->ctrlUser = New ControleurUser();
+                    }
+                    $this->ctrlUser->users();
+                }
                 else throw new Exception("erreur 404");
             } 
             else if (isset($_GET['traitement'])) 
