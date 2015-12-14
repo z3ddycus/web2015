@@ -9,8 +9,8 @@ class userManager extends Modele {
 
     public function getUsers() {
         $sql = 'select * from user order by pseudo';
-        $billets = $this->executerRequete($sql);
-        return $billets;
+        $users = $this->executerRequete($sql);
+        return $users->fetchAll();
     }
 
 
@@ -22,7 +22,7 @@ class userManager extends Modele {
                 throw new Exception("La bdd est corrompu plusieurs utilisateurs possèdent le même pseudo");   
             } else {
                 $result = $users->fetch();
-                if (password_verify ($password , $result['password'])) {
+                if (password_verify($password , $result['password'])) {
                     return $result;
                 } else {
                     throw new Exception("Le mot de passe est incorrect");   
