@@ -19,12 +19,15 @@ class Routeur {
         try {
             if (isset($_GET['action'])) 
             {
-                if ($_GET['action'] == 'login') {
+                if ($_GET['action'] == 'login') 
+                {
                     if ($this->ctrlUser == NULL) {
                         $this->ctrlUser = New ControleurUser();
                     }
                     $this->ctrlUser->login();
-                } else if ($_GET['action'] == 'inscription') {
+                } 
+                else if ($_GET['action'] == 'inscription') 
+                {
                     if ($this->ctrlUser == NULL) {
                         $this->ctrlUser = New ControleurUser();
                     }
@@ -34,20 +37,21 @@ class Routeur {
             } 
             else if (isset($_GET['traitement'])) 
             {
-                if ($_GET['traitement'] == 'login') {
+                if ($_GET['traitement'] == 'login') 
+                {
                     if ($this->ctrlUser == NULL) {
                         $this->ctrlUser = New ControleurUser();
                     }
                     $this->ctrlUser->loginTraitement();
                 }
-
-                if ($_GET['traitement'] == 'inscription') {
+                else if ($_GET['traitement'] == 'inscription') 
+                {
                     if ($this->ctrlUser == NULL) {
                         $this->ctrlUser = New ControleurUser();
                     }
                     $this->ctrlUser->inscriptionTraitement();
-                } else throw new Exception("erreur 404");
-
+                } 
+                else throw new Exception("erreur 404");
             }
             else 
             {
