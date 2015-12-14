@@ -89,6 +89,12 @@ class ControleurUser {
         if ($this->userManager == NULL) {
             $this->userManager = New UserManager();
         }
+        $user = $this->userManager->getUserById($id);
+        if ($user == NULL) {
+            throw new Exception("Utilisateur inconnu");
+        } 
+        $vue = new Vue("UserAccount");
+        $vue->generer(array('user' => $user));
     }
 }
 
