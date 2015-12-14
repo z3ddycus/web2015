@@ -4,12 +4,12 @@ require_once 'Vue/Vue.php';
 require_once 'Modele/UserManager.php';
 
 class ControleurUser {
+	
+	private $userManager;
 
     public function __construct() {
-        $this->ctrlUser = NULL;
+        $this->userManager = NULL;
     }
-
-    private $ctrlUser;
 
     private function isValidPseudo($pseudo) {
         return preg_match("#^[a-zA-Z0-9]{1,20}$#", $pseudo);
@@ -79,7 +79,7 @@ class ControleurUser {
 	
 	public function users() {
         $vue = new Vue("Users");
-		if ($this->$userManager == NULL) {
+		if ($this->userManager == NULL) {
                 $this->userManager = New UserManager();
         }
         $vue->generer(array('users' => $this->userManager->getUsers()));
