@@ -79,7 +79,7 @@ class ControleurUser {
 	
 	public function users() {
 		if ($this->userManager == NULL) {
-                $this->userManager = New UserManager();
+            $this->userManager = New UserManager();
         }
         $vue = new Vue("Users");
         $vue->generer(array('users' => $this->userManager->getUsers()));
@@ -87,7 +87,7 @@ class ControleurUser {
 
     public function displayUser($id) {
         if ($this->userManager == NULL) {
-                $this->userManager = New UserManager();
+            $this->userManager = New UserManager();
         }
     }
 }

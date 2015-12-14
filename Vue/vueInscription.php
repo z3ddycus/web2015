@@ -30,7 +30,7 @@
                 <div class="col-md-offset-0 col-md-8"><input  class="btn btn-success" type="submit" value="S'inscrire"/></div>
                 </div>
             
-				<p id="messageInformationFormulaire"><?php if(isset ($message)) {echo $message;} ?></p>
+				<p><?php if(isset ($message)) {echo $message;} ?></p>
             </form>
         </div>
         </div>
