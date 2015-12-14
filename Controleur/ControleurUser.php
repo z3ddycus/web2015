@@ -4,6 +4,8 @@ require_once 'Vue/Vue.php';
 require_once 'Modele/UserManager.php';
 
 class ControleurUser {
+	
+	private $userManager;
 
     private $userManager;
 
