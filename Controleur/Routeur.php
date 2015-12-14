@@ -67,6 +67,13 @@ class Routeur {
                 } 
                 else throw new Exception("erreur 404");
             }
+            else if (isset($_GET['user'])) 
+            {   
+                if ($this->ctrlUser == NULL) {
+                    $this->ctrlUser = New ControleurUser();
+                }
+                $this->ctrlUser->displayUser($_GET['user']);
+            }
             else 
             {
                 if ($this->ctrlAccueil == NULL) {
