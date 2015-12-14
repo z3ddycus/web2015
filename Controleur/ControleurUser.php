@@ -6,16 +6,17 @@ require_once 'Modele/UserManager.php';
 class ControleurUser {
 
     public function __construct() {
+        $this->ctrlUser = NULL;
     }
 
+    private $ctrlUser;
 
     private function isValidPseudo($pseudo) {
-        //regex et taille
-        return true;
+        return preg_match("#^[a-zA-Z0-9]{1,20}$#", $pseudo);
     }
     private function isValidPassword($password) {
         //regex et taille
-        return true;
+        return preg_match("#^[a-zA-Z0-9]{1,20}$#", $password);
     }
 
     public function login() {
@@ -25,8 +26,10 @@ class ControleurUser {
 
     public function loginTraitement() {
         if (isset($_POST['login']) && isset($_POST['password'])) {
-        	$userManager = New UserManager();
-            $user = $userManager->getUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['password']));
+        	if ($this->$userManager == NULL) {
+                $this->userManager = New UserManager();
+            }
+            $user = $this->userManager->getUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['password']));
         	if ($user != NULL) {
         		$_SESSION['user'] = $user;
                 $vue = new Vue("Accueil");
@@ -48,9 +51,13 @@ class ControleurUser {
 
     public function inscriptionTraitement() {
         if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['password2'])) {
-            $userManager = New UserManager();
+            
+            if ($this->$userManager == NULL) {
+                $this->userManager = New UserManager();
+            }
+
             if ($this->isValidPassword($_POST['password']) && $this->isValidPseudo($_POST['login'])) {
-                $userManager->putUser($_POST['login'], $_POST['password']);
+                $this->userManager->putUser($_POST['login'], $_POST['password']);
                 $vue = new Vue("Accueil");
                 $vue->generer(array('message'=>"Votre inscription s'est bien déroulée"));
             } else {
@@ -72,8 +79,10 @@ class ControleurUser {
 	
 	public function users() {
         $vue = new Vue("Users");
-		$userManager = New UserManager();
-        $vue->generer(array('users' => $userManager->getUsers()));
+		if ($this->$userManager == NULL) {
+                $this->userManager = New UserManager();
+        }
+        $vue->generer(array('users' => $this->userManager->getUsers()));
     }
 }
 
