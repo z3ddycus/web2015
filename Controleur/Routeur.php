@@ -51,6 +51,13 @@ class Routeur {
                     }
                     $this->ctrlUser->inscriptionTraitement();
                 } 
+                else if ($_GET['traitement'] == 'logoff' && isset($_SESSION['user'])) 
+                {
+                    if ($this->ctrlUser == NULL) {
+                        $this->ctrlUser = New ControleurUser();
+                    }
+                    $this->ctrlUser->logoff();
+                } 
                 else throw new Exception("erreur 404");
             }
             else 
