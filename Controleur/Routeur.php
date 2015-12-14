@@ -58,7 +58,7 @@ class Routeur {
             }
         }
         catch (Exception $e) {
-            echo $e;
+            echo $e."<br/>".$e->getMessage;
             //$this->erreur($e->getMessage());
         }
     }
