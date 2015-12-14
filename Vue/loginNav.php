@@ -2,7 +2,6 @@
 si il y en a un, et "Login"/"S'inscrire" sinon. Se palce dans une navbar. -->
 
 <?php
-session_start();
 if (isset($_SESSION['user'])) { ?>
 	<li><a href="#">$_SESSION['user']['pseudo']</a></li>
 	<li><a href="index.php?traitement=logoff">Déconnexion</a></li>

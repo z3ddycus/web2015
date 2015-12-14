@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'Controleur/ControleurAccueil.php';
 require_once 'Controleur/ControleurUser.php';
 require_once 'Vue/Vue.php';
@@ -51,6 +51,13 @@ class Routeur {
                     }
                     $this->ctrlUser->inscriptionTraitement();
                 } 
+                else if ($_GET['traitement'] == 'logoff' && isset($_SESSION['user'])) 
+                {
+                    if ($this->ctrlUser == NULL) {
+                        $this->ctrlUser = New ControleurUser();
+                    }
+                    $this->ctrlUser->logoff();
+                } 
                 else throw new Exception("erreur 404");
             }
             else 
@@ -62,7 +69,9 @@ class Routeur {
             }
         }
         catch (Exception $e) {
-            echo $e."<br/>".$e->getMessage();
+            echo $e
+                ."<br/>"
+                .$e->getMessage();
             //$this->erreur($e->getMessage());
         }
     }

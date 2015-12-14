@@ -8,6 +8,16 @@ class ControleurUser {
     public function __construct() {
     }
 
+
+    private function isValidPseudo($pseudo) {
+        //regex et taille
+        return true;
+    }
+    private function isValidPassword($password) {
+        //regex et taille
+        return true;
+    }
+
     public function login() {
     	$vue = new Vue("Login");
         $vue->generer(array());
@@ -39,7 +49,8 @@ class ControleurUser {
     public function inscriptionTraitement() {
         if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['password2'])) {
             $userManager = New UserManager();
-            if ($_POST['password'] == $_POST['password2'] && $userManager->putUser($_POST['login'], $_POST['password'])) {
+            if ($this->isValidPassword($password) && $this->isValidPseudo($pseudo)) {
+                $userManager->putUser($_POST['login'], $_POST['password']);
                 $vue = new Vue("Accueil");
                 $vue->generer(array('message'=>"Votre inscription s'est bien déroulée"));
             } else {
