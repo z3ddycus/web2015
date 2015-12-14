@@ -47,7 +47,6 @@
 			<div class="page-header">
 				<h1>Quiz Constructor</h1>
 			</div>
-			<p class="lead">Petit texte de présentation, que l'on retrouvera sur toutes les pages.</p>
 			<!-- Contenu : généré sur la route -->
 			<div id="content">
 				<?= $contenu ?>
