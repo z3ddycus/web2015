@@ -7,22 +7,21 @@ require_once 'Modele/Modele.php';
  */
 class userManager extends Modele { 
 
-    /** Renvoie la liste des billets du blog
-     * 
-     * @return PDOStatement La liste des billets
-     */
+    public function isValidPseudo($pseudo) {
+        return true;
+    }
+    public function isValidPassword($password) {
+        return true;
+    }
+
+
     public function getUsers() {
         $sql = 'select * from user order by pseudo';
         $billets = $this->executerRequete($sql);
         return $billets;
     }
 
-    /** Renvoie les informations sur un billet
-     * 
-     * @param int $id L'identifiant du billet
-     * @return array Le billet
-     * @throws Exception Si l'identifiant du billet est inconnu
-     */
+
     public function getUser($pseudo, $password) {
         $sql = 'select id,pseudo,password from user where pseudo=?';
         $users = $this->executerRequete($sql, array($pseudo));
@@ -42,4 +41,12 @@ class userManager extends Modele {
             return NULL;
     }
 
+    public function putUser($pseudo, $password) {
+        if (!$this->isValidPassword($password) || !$this->isValidPseudo($pseudo)) {
+            return false;
+        }
+        $sql = 'insert into user (pseudo, password) values (:p1,:p2)';
+        $users = $this->executerRequete($sql, array('p1'=>$pseudo, 'p2'=>password_hash($password, PASSWORD_DEFAULT)));
+        return true;
+    }
 }

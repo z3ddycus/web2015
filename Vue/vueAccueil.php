@@ -1,3 +1,3 @@
 <?php $this->titre = "Quiz Constructor"; ?>
 
-<? //contenu ?>
+<p id="messageInformationFormulaire"><?php if(isset ($message)) {echo $message;} ?></p>

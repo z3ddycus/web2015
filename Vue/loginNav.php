@@ -6,6 +6,6 @@ session_start();
 if (isset($_SESSION['user'])) { ?>
 	<li><a href="#">Mon compte</a></li>
 <?php } else { ?>
-	<li><a href="#">Inscription</a></li>
+	<li><a href="index.php?action=inscription">Inscription</a></li>
 	<li><a href="index.php?action=login">Connexion</a></li>
 <?php } ?>

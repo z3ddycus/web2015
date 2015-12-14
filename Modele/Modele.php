@@ -23,7 +23,7 @@ abstract class Modele {
     /**
      * Renvoie une connexion à la bdd
      */
-    private function getBdd() {
+    protected function getBdd() {
         if ($this->bdd == null) {
             // Création de la connexion
             $this->bdd = new PDO('mysql:host=localhost;dbname=quiz;charset=utf8',

@@ -20,17 +20,35 @@ class ControleurUser {
         	if ($user != NULL) {
         		$_SESSION['user'] = $user;
                 $vue = new Vue("Accueil");
-    	        $vue->generer(array('message'=>"Vous êtes connecté. <3"));
+    	        $vue->generer(array('message'=>"Vous êtes connecté"));
         	} else {
                 $vue = new Vue("Login");
-                $vue->generer(array('message'=>"Les identifiants sont incorrects. </3"));
+                $vue->generer(array('message'=>"Les identifiants sont incorrects"));
         	}
         } else {
-            echo $_POST['login'];
-            echo $_POST['password'];
-            return ;
             $vue = new Vue("Login");
-            $vue->generer(array('message'=>"Les champs ne sont pas remplies. </3"));
+            $vue->generer(array('message'=>"Les champs ne sont pas remplies"));
+        }
+    }
+
+    public function inscription() {
+        $vue = new Vue("Inscription");
+        $vue->generer(array());
+    }
+
+    public function inscriptionTraitement() {
+        if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['password2'])) {
+            $userManager = New UserManager();
+            if ($_POST['password'] == $_POST['password2'] && $userManager->putUser($_POST['login'], $_POST['password'])) {
+                $vue = new Vue("Accueil");
+                $vue->generer(array('message'=>"Votre inscription s'est bien déroulée"));
+            } else {
+                $vue = new Vue("Inscription");
+                $vue->generer(array('message'=>"Les champs sont incorrectement remplies"));
+            }
+        } else {
+            $vue = new Vue("Inscription");
+            $vue->generer(array('message'=>"Les champs ne sont pas remplies"));
         }
     }
 

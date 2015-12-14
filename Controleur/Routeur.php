@@ -24,8 +24,13 @@ class Routeur {
                         $this->ctrlUser = New ControleurUser();
                     }
                     $this->ctrlUser->login();
+                } else if ($_GET['action'] == 'inscription') {
+                    if ($this->ctrlUser == NULL) {
+                        $this->ctrlUser = New ControleurUser();
+                    }
+                    $this->ctrlUser->inscription();
                 }
-				else throw new Exception("erreur 404");
+                else throw new Exception("erreur 404");
             } 
             else if (isset($_GET['traitement'])) 
             {
@@ -34,6 +39,13 @@ class Routeur {
                         $this->ctrlUser = New ControleurUser();
                     }
                     $this->ctrlUser->loginTraitement();
+                }
+
+                if ($_GET['traitement'] == 'inscription') {
+                    if ($this->ctrlUser == NULL) {
+                        $this->ctrlUser = New ControleurUser();
+                    }
+                    $this->ctrlUser->inscriptionTraitement();
                 } else throw new Exception("erreur 404");
 
             }
@@ -46,7 +58,8 @@ class Routeur {
             }
         }
         catch (Exception $e) {
-            $this->erreur($e->getMessage());
+            echo $e;
+            //$this->erreur($e->getMessage());
         }
     }
 
