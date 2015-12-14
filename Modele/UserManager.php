@@ -13,7 +13,7 @@ class userManager extends Modele {
         return $users->fetchAll();
     } 
 
-    public function getUser($pseudo, $password == NULL) {
+    public function getUser($pseudo, $password = NULL) {
         $sql = 'select * from user where pseudo=?';
         $users = $this->executerRequete($sql, array($pseudo));
         if ($users->rowCount() > 0) {
