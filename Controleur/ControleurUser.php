@@ -49,7 +49,7 @@ class ControleurUser {
     public function inscriptionTraitement() {
         if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['password2'])) {
             $userManager = New UserManager();
-            if ($this->isValidPassword($password) && $this->isValidPseudo($pseudo)) {
+            if ($this->isValidPassword($_POST['login']) && $this->isValidPseudo($_POST['password'])) {
                 $userManager->putUser($_POST['login'], $_POST['password']);
                 $vue = new Vue("Accueil");
                 $vue->generer(array('message'=>"Votre inscription s'est bien déroulée"));
