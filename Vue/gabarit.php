@@ -29,9 +29,14 @@
 					</button>
 					<a class="navbar-brand" href="index.php">Quiz Constructor</a>
 				</div>
+				<div id="navbar" class="collapse navbar-collapse navbar-left">
+					<ul class="nav navbar-nav">
+					    <li><a href="#">Quiz</a></li>
+						<li><a href="#">Utilisateurs</a></li>
+					</ul>
+				</div>
 				<div id="navbar" class="collapse navbar-collapse navbar-right">
 					<ul class="nav navbar-nav">
-					    <li><a href="#">Liste des quiz</a></li>
 						<?php include 'loginNav.php'; ?>
 					</ul>
 				</div>
