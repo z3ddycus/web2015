@@ -5,17 +5,17 @@ require_once 'Modele/UserManager.php';
 
 class ControleurUser {
 
+    private $userManager;
+
     public function __construct() {
-        $this->ctrlUser = NULL;
+        $this->userManager = NULL;
     }
 
-    private $ctrlUser;
 
     private function isValidPseudo($pseudo) {
         return preg_match("#^[a-zA-Z0-9]{1,20}$#", $pseudo);
     }
     private function isValidPassword($password) {
-        //regex et taille
         return preg_match("#^[a-zA-Z0-9]{1,20}$#", $password);
     }
 
@@ -26,7 +26,7 @@ class ControleurUser {
 
     public function loginTraitement() {
         if (isset($_POST['login']) && isset($_POST['password'])) {
-        	if ($this->$userManager == NULL) {
+        	if ($this->userManager == NULL) {
                 $this->userManager = New UserManager();
             }
             $user = $this->userManager->getUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['password']));
@@ -52,7 +52,7 @@ class ControleurUser {
     public function inscriptionTraitement() {
         if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['password2'])) {
             
-            if ($this->$userManager == NULL) {
+            if ($this->userManager == NULL) {
                 $this->userManager = New UserManager();
             }
 
@@ -79,7 +79,7 @@ class ControleurUser {
 	
 	public function users() {
         $vue = new Vue("Users");
-		if ($this->$userManager == NULL) {
+		if ($this->userManager == NULL) {
                 $this->userManager = New UserManager();
         }
         $vue->generer(array('users' => $this->userManager->getUsers()));
