@@ -7,14 +7,6 @@ require_once 'Modele/Modele.php';
  */
 class userManager extends Modele { 
 
-    public function isValidPseudo($pseudo) {
-        return true;
-    }
-    public function isValidPassword($password) {
-        return true;
-    }
-
-
     public function getUsers() {
         $sql = 'select * from user order by pseudo';
         $billets = $this->executerRequete($sql);
@@ -42,11 +34,7 @@ class userManager extends Modele {
     }
 
     public function putUser($pseudo, $password) {
-        if (!$this->isValidPassword($password) || !$this->isValidPseudo($pseudo)) {
-            return false;
-        }
         $sql = 'insert into user (pseudo, password) values (:p1,:p2)';
         $users = $this->executerRequete($sql, array('p1'=>$pseudo, 'p2'=>password_hash($password, PASSWORD_DEFAULT)));
-        return true;
     }
 }

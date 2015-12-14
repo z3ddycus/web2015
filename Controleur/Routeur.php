@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'Controleur/ControleurAccueil.php';
 require_once 'Controleur/ControleurUser.php';
 require_once 'Vue/Vue.php';
@@ -62,7 +62,9 @@ class Routeur {
             }
         }
         catch (Exception $e) {
-            echo $e."<br/>".$e->getMessage();
+            echo $e
+                ."<br/>"
+                .$e->getMessage();
             //$this->erreur($e->getMessage());
         }
     }
