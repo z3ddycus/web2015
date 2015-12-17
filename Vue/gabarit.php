@@ -31,7 +31,7 @@
 				</div>
 				<div id="navbar" class="collapse navbar-collapse navbar-left">
 					<ul class="nav navbar-nav">
-					    <li><a href="#">Quiz</a></li>
+					    <li><a href="index.php?action=quiz">Quiz</a></li>
 						<li><a href="index.php?action=users">Utilisateurs</a></li>
 					</ul>
 				</div>
