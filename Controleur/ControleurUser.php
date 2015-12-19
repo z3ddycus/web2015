@@ -2,11 +2,12 @@
 
 require_once 'Vue/Vue.php';
 require_once 'Modele/UserManager.php';
+require_once 'Modele/QuizManager.php';
 
 class ControleurUser {
 	
     // ATTRIBUT
-
+    private $quizManager;
 	private $userManager;
 
     // CONSTRUCTEUR
@@ -43,8 +44,9 @@ class ControleurUser {
         if ($user == NULL) {
             throw new Exception("Utilisateur inconnu");
         }
+        $allQuiz = $this->getQuizManager()->getQuizFromUser($user['id']);
         $vue = new Vue("UserAccount");
-        $vue->generer(array('user' => $user));
+        $vue->generer(array('user' => $user, 'quiz' => $allQuiz));
     }
 
     public function inscriptionTraitement() {
@@ -93,6 +95,13 @@ class ControleurUser {
             $this->userManager = New UserManager();
         }
         return $this->userManager;
+    }
+
+    private function getQuizManager() {
+        if ($this->quizManager == NULL) {
+            $this->quizManager = New QuizManager();
+        }
+        return $this->quizManager;
     }
 
     private function isValidPseudo($pseudo) {

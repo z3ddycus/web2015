@@ -12,10 +12,7 @@ class quizManager extends Modele {
     public function getNextId() {
         $sql = 'select max(id) from quiz';
         $result = $this->executerRequete($sql);
-        if ($result->rowCount() <= 0) {
-            return 0;
-        }
-        return $quiz->fetch() + 1;
+        return $result->fetch()[0] + 1;
     }
 
     public function getAllQuiz() {
@@ -27,7 +24,7 @@ class quizManager extends Modele {
     public function getQuizFromUser($id) {
         $sql = 'select * from quiz where id_auteur=?';
         $quiz = $this->executerRequete($sql, array($id));
-        return $result->fetchAll();
+        return $quiz->fetchAll();
     }
 
     public function getQuizById($id) {

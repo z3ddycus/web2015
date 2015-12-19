@@ -63,6 +63,11 @@ class Routeur {
                 {
                     $this->getControleurUser()->loginTraitement();
                 }
+                // Traitement du formulaire de création du quiz
+                else if ($_GET['traitement'] == 'newquiz') 
+                {
+                    $this->getControleurQuiz()->traitementCreateQuiz();
+                } 
                 // Traitement du formulaire d'inscription
                 else if ($_GET['traitement'] == 'inscription') 
                 {
@@ -79,6 +84,11 @@ class Routeur {
             else if (isset($_GET['user'])) 
             {   
                 $this->getControleurUser()->displayUser($_GET['user']);
+            }
+            // édite un quiz
+            else if (isset($_GET['editquiz'])) 
+            {   
+                $this->getControleurQuiz()->editQuiz($_GET['editquiz']);
             }
             // Page d'accueil
             else 

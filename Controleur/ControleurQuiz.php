@@ -45,13 +45,11 @@ class ControleurQuiz {
         }
         $id = $this->getQuizManager()->getNextId();
         // Info du quiz général
-        if (isValidQuizTitle($_POST['title']) && $this->isValidQuizDescription($_POST['description'])) {
+        if ($this->isValidQuizTitle($_POST['title'])) {
             // Ajout de l'entête du quiz
             $this->getQuizManager()->addQuizz($id, $_POST['title'], $_SESSION['user']['id'], htmlspecialchars($_POST['description']));
         }
-        $vue = new Vue("EditQuiz");
-        $vue->generer(array('quiz' => $this->getQuizManager()->getQuizById($id), 'question' => array()));
-    
+        header("Location: index.php?editquiz=".$id);
     }
 
 
@@ -131,6 +129,10 @@ class ControleurQuiz {
     // PRIVATE FUNCTION
 
     private function isValidQuestion($intitule, $choix1, $choix2, $choix3, $choix4, $reponse) {
+        return true;
+    }
+
+    private function isValidQuizTitle($title){
         return true;
     }
 

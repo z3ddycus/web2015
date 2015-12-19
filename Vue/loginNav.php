@@ -3,7 +3,7 @@ si il y en a un, et "Login"/"S'inscrire" sinon. Se palce dans une navbar. -->
 
 <?php
 if (isset($_SESSION['user'])) { ?>
-	<li><a href="#"><?php echo $_SESSION['user']['pseudo']; ?></a></li>
+	<li><a href="index.php?user= <?php echo $_SESSION['user']['id']; ?> "><?php echo $_SESSION['user']['pseudo']; ?></a></li>
 	<li><a href="index.php?traitement=logoff">Déconnexion</a></li>
 <?php } else { ?>
 	<li><a href="index.php?action=inscription">Inscription</a></li>

@@ -1,1 +1,1 @@
- 
+<?php $this->titre = "Quiz Constructor - Edition de Quiz"; ?> 

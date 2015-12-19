@@ -1,3 +1,3 @@
-<?php $this->titre = "Mon Blog - Erreur"; ?>
+<?php $this->titre = "Quiz Constructor - Erreur"; ?>
 
 <p><?php if(isset ($message)) {echo $message;} ?></p>
