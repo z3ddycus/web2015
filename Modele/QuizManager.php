@@ -38,13 +38,13 @@ class quizManager extends Modele {
     }
 
     public function getQuestions($id) {
-        $sql = 'select * from question where id_quiz=? order by num';
+        $sql = 'select * from question where id_quizz=? order by num';
         $quiz = $this->executerRequete($sql, array($id));
         return $quiz->fetchAll();
     }
 
     public function getQuestion($id, $num) {
-        $sql = 'select * from question where id_quiz=? and num =? order by num';
+        $sql = 'select * from question where id_quizz=? and num =? order by num';
         $question = $this->executerRequete($sql, array($id, $num));
         if ($question->rowCount() > 0) { 
             return $quiz->fetch();

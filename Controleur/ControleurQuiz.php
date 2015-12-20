@@ -118,7 +118,7 @@ class ControleurQuiz {
         if ($quiz == NULL) {
             throw New Exception("Ce quiz n'existe pas.");
         }
-        if ($_SESSION['user']['admin'] || $quiz['id_auteur'] != $_SESSION['user'][id]) {
+        if ($_SESSION['user']['admin'] || $quiz['id_auteur'] != $_SESSION['user']['id']) {
             throw New Exception("Vous n'êtes pas le propriétaire de ce quiz.");
         }
 
