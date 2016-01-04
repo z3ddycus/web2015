@@ -1,3 +1,5 @@
 <?php $this->titre = "Quiz Constructor - Erreur"; ?>
 
-<p><?php if(isset ($message)) {echo $message;} ?></p>
+<h2><u>Erreur</u></h2>
+
+<p class="text-muted"><?php if(isset ($message)) {echo $message;} ?></p>
