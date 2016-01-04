@@ -116,7 +116,7 @@ class ControleurQuiz {
             $this->getQuizManager()->addQuestion($idQuiz, $question);
             header("Location: index.php?editQuiz=".$idQuiz);
         } else {
-            throw New Exception("La requête réagit étrangement. Vous n'auriez pas bidouillé maladroitement une requête?");
+            throw new Exception("Les champs sont incorrectement remplis");
         }
     }
 
@@ -158,7 +158,7 @@ class ControleurQuiz {
     // PRIVATE FUNCTION
 
     private function isValidQuestion($intitule, $choix1, $choix2, $choix3, $choix4, $reponse) {
-        $result = isset($reponse) && is_integer($reponse);
+        $result = isset($reponse);
         if ($result) {
             $nb = 2;
             if (isset($choix3) && !empty($choix3)) {
@@ -176,14 +176,7 @@ class ControleurQuiz {
             }
             $result = $reponse > 0 && $reponse <= $nb;
         }
-        return true || $result && preg_match("^.{255}$", $intitule) 
-            && isValidReponse($choix1) && isValidReponse($choix2)
-            && ($nb < 3 || isValidReponse($choix3)) && ($nb < 4 || isValidReponse($choix4));
-    }
-
-    private function isValidReponse($reponse) {
-        // Si assez de temps, à remplir pour vérifier que $reponse est du svg, une équation ou du texte simple
-        return true;
+        return $result;
     }
 
     private function isValidQuiz($title, $description){

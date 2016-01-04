@@ -120,7 +120,6 @@ class Routeur {
         }
         catch (Exception $e) {
             $this->erreur($e->getMessage());
-            echo $e;
         }
     }
 

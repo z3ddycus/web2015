@@ -32,16 +32,16 @@
                         <div class="list-item">
                                 <h4><u>Bonne réponse :</u></h4>
                                 <div class="radio">
-                                    <label><input type="radio" name="reponse" value="1"/>Réponse 1</label>
+                                    <label><input type="radio" name="reponse" value="1" <?php if($question['reponse'] == 1){echo "checked";} ?>/>Réponse 1</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input type="radio" name="reponse" value="2">Réponse 2</label>
+                                    <label><input type="radio" name="reponse" value="2" <?php if($question['reponse'] == 2){echo "checked";} ?>/>Réponse 2</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input type="radio" name="reponse" value="3">Réponse 3</label>
+                                    <label><input type="radio" name="reponse" value="3" <?php if($question['reponse'] == 3){echo "checked";} ?>/>Réponse 3</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input type="radio" name="reponse" value="4">Réponse 4</label>
+                                    <label><input type="radio" name="reponse" value="4" <?php if($question['reponse'] == 4){echo "checked";} ?>/>Réponse 4</label>
                                 </div>
                         </div>
                         </div>
