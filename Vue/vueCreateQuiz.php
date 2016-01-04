@@ -17,7 +17,7 @@
                 </div> 
                 
                 <div class="form-group">
-                <div><label for="description">Description</label><textarea name="description" placeholder="Description du quiz" id="description" rows="10" cols="50" class="form-control"></textarea></div>
+                <div><label for="description">Description du quiz</label><textarea name="description" placeholder="Description du quiz" id="description" rows="10" cols="50" class="form-control"></textarea></div>
                 </div> 
                 
                 <div class="form-group">
