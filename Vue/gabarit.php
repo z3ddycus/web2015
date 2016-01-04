@@ -44,9 +44,6 @@
 		</div>
 
 		<div class="container">
-			<div class="page-header">
-				<h1>Quiz Constructor</h1>
-			</div>
 			<!-- Contenu : généré sur la route -->
 			<div id="content">
 				<?= $contenu ?>

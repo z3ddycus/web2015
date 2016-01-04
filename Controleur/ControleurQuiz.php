@@ -18,7 +18,7 @@ class ControleurQuiz {
     // CREATION DE VUE
 
     public function playQuiz($id) { // secure
-        if (!isset($id) || !is_integer($id)) {
+        if (!isset($id)) {
             throw New Exception("Valeurs aberrantes, j'espère qu'on ne vous y reprendra pas.");
         }
         $manager = $this->getQuizManager();
@@ -27,8 +27,27 @@ class ControleurQuiz {
             throw New Exception("Quiz inconnu");
         }
         $question = $manager->getQuestions($id);
-        $vue = new Vue("Quiz");
+        $vue = new Vue("PlayQuiz");
         $vue->generer(array('quiz'=>$quiz, 'questions'=>$question));
+    }
+
+    public function traitementPlayQuiz($id) {
+        $quiz = $this->getQuizManager()->getQuizById($id);
+        if ($quiz == NULL) {
+            throw new Exception("Quiz inconnu");
+        }
+        $questions = $this->getQuizManager()->getQuestions($id);
+        $nb = 0;
+
+        for ($k = 1; $k <= count($questions); ++$k) { 
+            if (isset($_POST["choice".$k])) {
+                if ($questions[$k-1]['reponse'] == $_POST['choice'.$k]) {
+                    ++$nb;
+                }
+            }
+        }
+        $vue = new Vue("Resultat");
+        $vue->generer(array("nbQuestion"=>count($questions), "nbBonneReponse"=>$nb)); 
     }
 
     public function createQuiz() {
@@ -39,76 +58,86 @@ class ControleurQuiz {
         $vue->generer(array());
     }
 
+    public function addQuestion($idQuiz, $numQuestion) {
+        $quiz = $this->getQuizManager()->getQuizById($idQuiz);
+        if ($quiz == NULL) {
+            throw New Exception("Ce quiz n'existe pas. Tenteriez vous de tricher?");
+        }
+        if ($quiz['id_auteur'] != $_SESSION['user']['id']) {
+            throw New Exception("Ce quiz ne vous appartient pas. Vil faquin");
+        }
+        $question = $this->getQuizManager()->getQuestion($idQuiz, $numQuestion);
+        $vue = new Vue("EditQuestion");
+        $vue->generer(array('quiz'=>$quiz, 'question'=>$question));
+    }
+
     public function traitementCreateQuiz() { 
         if (!isset($_SESSION['user'])) {
             throw New Exception("Vous n'avez pas les droits pour créer un quiz.");
         }
-        $id = $this->getQuizManager()->getNextId();
+        $id = $this->getQuizManager()->getNextId(); 
         // Info du quiz général
-        if ($this->isValidQuizTitle($_POST['title'])) {
+        if ($this->isValidQuiz($_POST['title'], $_POST['description'])) {
             // Ajout de l'entête du quiz
             $this->getQuizManager()->addQuizz($id, $_POST['title'], $_SESSION['user']['id'], htmlspecialchars($_POST['description']));
         }
-        header("Location: index.php?editquiz=".$id);
+        header("Location: index.php?editQuiz=".$id);
     }
-
-
-
-
-
     public function traitementEditQuiz($idQuiz) {
-        // analyse des champs des questions
-        $prefixe = 'q1_';
-        $questionNb = 1;
-        $listQuestion = array();
-        $problem = false;
-
-        while(isset($_POST[$prefixe.'intitule'])) {
-            if (isset($_POST[$prefixe.'champ1'])
-                && isset($_POST[$prefixe.'champ2']) 
-                && isset($_POST[$prefixe.'champ3']) 
-                && isset($_POST[$prefixe.'champ4']) 
-                && isset($_POST[$prefixe.'reponse'])) {
-
-                if ($this->isValidQuestion($_POST[$prefixe.'champ1'],$_POST[$prefixe.'champ2'],
-                        $_POST[$prefixe.'champ3'],$_POST[$prefixe.'champ4'],
-                        $_POST[$prefixe.'reponse'],$_POST[$prefixe.'intitule'])) {
-
-                        $listQuestion[$questionNb] = array('id_quizz' => $idQuiz,
-                                    'num' => $questionNb, 
-                                    'intitule' => htmlspecialchars($_POST[$prefixe.'intitule']),
-                                    'choix1' => $_POST[$prefixe.'champ1'],
-                                    'choix2' => $_POST[$prefixe.'champ2'],
-                                    'choix3' => $_POST[$prefixe.'champ3'],
-                                    'choix4' => $_POST[$prefixe.'champ4'],
-                                    'reponse' => $_POST[$prefixe.'reponse']);
-                } else {
-                    $problem = true;
-                }
+        if ($this->isValidQuiz($_POST['title'], $_POST['description'])) {
+            $quiz = $this->getQuizManager()->getQuizById($idQuiz);
+            if ($quiz == NULL) {
+                throw new Exception("Ce quiz n'existe pas.");
+            } else if ($_SESSION['user']['id'] != $quiz['id_auteur']) {
+                throw new Exception("Ce quiz n'est pas de vous.");
             } else {
-                throw New Exception("La requête réagit étrangement. Vous n'auriez pas bidouillé maladroitement une requête?");
+                $id = $idQuiz;
+                $this->getQuizManager()->editQuiz($id, $_POST['title'], $_SESSION['user']['id'], htmlspecialchars($_POST['description']));
             }
-            ++$questionNb;
-            $prefixe = 'q'.$questionNb.'_'; 
-        }
-        if ($problem) {
-            $vue = new Vue('EditQuiz');
-            $vue-> generer(array('quiz'=>$idQuiz, 'questions'=>$listQuestion, 'message'=>'Certains champs ne sont pas convenablement remplies'));
+            header("Location: index.php?editQuiz=".$id);
         } else {
-            $this->getQuizManager()->addQuestions($idQuiz, $listQuestion);
-            $vue = new Vue("Quiz");
-            $vue->generer(array());
+            $_SESSION['message'] = "Les données du quiz sont invalides.";
+            header("Location: index.php");
         }
     }
+    public function traitementEditQuestion($idQuiz, $idQuestion) {
+        if ($this->isValidQuestion($_POST['intitule'], $_POST['choix1'],$_POST['choix2'],
+                 $_POST['choix3'],$_POST['choix4'], $_POST['reponse'])) {
+
+            $question = array('id_quizz' => $idQuiz,
+                        'num' => $idQuestion, 
+                        'intitule' => htmlspecialchars($_POST['intitule']),
+                        'choix1' => $_POST['choix1'],
+                        'choix2' => $_POST['choix2'],
+                        'choix3' => $_POST['choix3'],
+                        'choix4' => $_POST['choix4'],
+                        'reponse' => $_POST['reponse']);
+
+            $this->getQuizManager()->addQuestion($idQuiz, $question);
+            header("Location: index.php?editQuiz=".$idQuiz);
+        } else {
+            throw New Exception("La requête réagit étrangement. Vous n'auriez pas bidouillé maladroitement une requête?");
+        }
+    }
+
 
     public function displayAllQuiz() {
         $vue = New Vue("Quiz");
         $vue->generer(array('quiz' => $this->getQuizManager()->getAllQuiz()));
     }
 
-
-
-
+    public function editQuestion($idQuiz, $numQuestion) {
+        $quiz = $this->getQuizManager()->getQuizById($idQuiz);
+        if ($quiz == NULL) {
+            throw New Exception("Le quiz n'existe pas.");
+        }
+        if ($_SESSION['user']['admin'] || $quiz['id_auteur'] != $_SESSION['user']['id']) {
+            throw New Exception("Vous n'êtes pas le propriétaire de ce quiz.");
+        }
+        $question = $this->getQuizManager()->getQuestion($idQuiz, $numQuestion);
+        $vue = new Vue("EditQuestion");
+        $vue->generer(array('quiz'=>$quiz, 'question'=> $question, 'numQuestion' => $numQuestion));
+    }
 
     public function editQuiz($id) { 
         if (!isset($_SESSION['user'])) {
@@ -121,19 +150,44 @@ class ControleurQuiz {
         if ($_SESSION['user']['admin'] || $quiz['id_auteur'] != $_SESSION['user']['id']) {
             throw New Exception("Vous n'êtes pas le propriétaire de ce quiz.");
         }
-
+        $nbQuestion = $this->getQuizManager()->getNbQuestion($id);
         $vue = new Vue('EditQuiz');
-        $vue->generer(array('quiz' => $quiz, 'question' => $this->getQuizManager()->getQuestions($id)));
+        $vue->generer(array('quiz' => $quiz, 'question' => $this->getQuizManager()->getQuestions($id), 'nbQuestion' => $this->getQuizManager()->getNbQuestion($id)));
     }
 
     // PRIVATE FUNCTION
 
     private function isValidQuestion($intitule, $choix1, $choix2, $choix3, $choix4, $reponse) {
+        $result = isset($reponse) && is_integer($reponse);
+        if ($result) {
+            $nb = 2;
+            if (isset($choix3) && !empty($choix3)) {
+                ++$nb;
+            }
+            if (isset($choix4) && !empty($choix4)) {
+                if ($nb <= 2)  {
+                    $choix3 = $choix4;
+                    if ($reponse = 4) {
+                        $reponse = 3;
+                    }
+                } else {
+                    ++$nb;
+                }
+            }
+            $result = $reponse > 0 && $reponse <= $nb;
+        }
+        return true || $result && preg_match("^.{255}$", $intitule) 
+            && isValidReponse($choix1) && isValidReponse($choix2)
+            && ($nb < 3 || isValidReponse($choix3)) && ($nb < 4 || isValidReponse($choix4));
+    }
+
+    private function isValidReponse($reponse) {
+        // Si assez de temps, à remplir pour vérifier que $reponse est du svg, une équation ou du texte simple
         return true;
     }
 
-    private function isValidQuizTitle($title){
-        return true;
+    private function isValidQuiz($title, $description){
+        return isset($title) && isset($description);
     }
 
     private function getQuizManager() {
@@ -142,7 +196,7 @@ class ControleurQuiz {
         }
         return $this->quizManager;
     }
-
+    
 
 }
 

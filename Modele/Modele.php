@@ -26,8 +26,10 @@ abstract class Modele {
     protected function getBdd() {
         if ($this->bdd == null) {
             // Création de la connexion
-            $this->bdd = new PDO('mysql:host=localhost;dbname=quiz;charset=utf8',
-                    'adminTest', 'password',
+            include "Modele/bdd.php";
+            $this->bdd = new PDO(
+                    'mysql:host='.$adresse_base_de_donnee.';dbname='.$base_de_donnee.';charset=utf8',
+                    $user_base_de_donnee, $password_base_de_donnee,
                     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         }
         return $this->bdd;

@@ -31,7 +31,7 @@ class Routeur {
             {   
                 // Tous les quiz
                 if ($_GET['action'] == 'quiz') 
-                { 
+                {
                     $this->getControleurQuiz()->displayAllQuiz();
                 }
                 // Création de quiz
@@ -53,7 +53,7 @@ class Routeur {
 				else if ($_GET['action'] == 'users') 
                 {
                     $this->getControleurUser()->users();
-                }
+                } 
                 else throw new Exception("erreur 404");
             } 
             else if (isset($_GET['traitement'])) 
@@ -73,11 +73,23 @@ class Routeur {
                 {
                     $this->getControleurUser()->inscriptionTraitement();
                 } 
+                else if ($_GET['traitement'] == 'resultat' && isset($_GET['quiz']))  
+                {
+                    $this->getControleurQuiz()->traitementPlayQuiz($_GET['quiz']);
+                } 
                 // Traitement du logoff
                 else if ($_GET['traitement'] == 'logoff' && isset($_SESSION['user'])) 
                 {
                     $this->getControleurUser()->logoff();
                 } 
+                else if ($_GET['traitement'] == 'editQuestion' && isset($_GET['quiz']) && isset($_GET['question']) && isset($_SESSION['user'])) 
+                {
+                    $this->getControleurQuiz()->traitementEditQuestion($_GET['quiz'], $_GET['question']);
+                } 
+                else if ($_GET['traitement'] == 'editQuiz' && isset($_GET['quiz']) && isset($_SESSION['user'])) 
+                {
+                    $this->getControleurQuiz()->traitementEditQuiz($_GET['quiz']);
+                }
                 else throw new Exception("erreur 404");
             }
             // Affichage d'un user
@@ -85,10 +97,20 @@ class Routeur {
             {   
                 $this->getControleurUser()->displayUser($_GET['user']);
             }
+            // faire un quiz
+            else if (isset($_GET['playQuiz'])) {
+                $this->getControleurQuiz()->playQuiz($_GET['playQuiz']);
+            }
             // édite un quiz
-            else if (isset($_GET['editquiz'])) 
-            {   
-                $this->getControleurQuiz()->editQuiz($_GET['editquiz']);
+            else if (isset($_GET['editQuiz']) && isset($_SESSION['user'])) 
+            {
+                if (isset($_GET['question'])) 
+                {
+                    $this->getControleurQuiz()->editQuestion($_GET['editQuiz'], $_GET['question']);
+                } else 
+                {
+                    $this->getControleurQuiz()->editQuiz($_GET['editQuiz']);
+                }
             }
             // Page d'accueil
             else 
@@ -97,17 +119,15 @@ class Routeur {
             }
         }
         catch (Exception $e) {
-            echo $e
-                ."<br/>"
-                .$e->getMessage();
-            ////////////////////////////////////////$this->erreur($e->getMessage());
+            $this->erreur($e->getMessage());
+            echo $e;
         }
     }
 
     // Affiche une erreur
     private function erreur($msgErreur) {
         $vue = new Vue("Erreur");
-        $vue->generer(array('msgErreur' => $msgErreur));
+        $vue->generer(array('message' => $msgErreur));
     }
 
     /**
