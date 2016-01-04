@@ -1,1 +1,0 @@
-<?php $adresse_base_de_donnee = "localhost"; $base_de_donnee = "quiz"; $user_base_de_donnee = "adminTest";$password_base_de_donnee = "password";?>

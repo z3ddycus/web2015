@@ -12,9 +12,11 @@
 			<a href="index.php?playQuiz=<?php echo $q['id'];?>" class="btn btn-default">
 				<?php echo $q['titre']; ?> 
 			</a>
-			<a href="index.php?editQuiz=<?php echo $q['id'];?>" class="pull-right btn btn-primary">
-				<?php echo "Editer"; ?> 
-			</a>
-			</li>
+			<?php if (isset($_SESSION['user']) && ($_SESSION['user']['admin'] || ($q['id_auteur'] == $_SESSION['user']['id']))) {?>
+					<a href="index.php?editQuiz=<?php echo $q['id'];?>" class="pull-right btn btn-primary">
+						<?php echo "Editer"; ?> 
+					</a>
+			<?php } ?>
+		</li>
 	<?php } ?>
 </ul>
