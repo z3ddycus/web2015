@@ -51,7 +51,7 @@ class ControleurUser {
 
     public function inscriptionTraitement() {
         if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['password2'])) {
-            if ($this->isValidPassword($_POST['password']) && $this->isValidPseudo($_POST['login'])) {
+            if ($this->isValidPassword($_POST['password']) && $this->isValidPseudo($_POST['login']) &&  $this->getUserManager()->getUser($pseudo) == Null ) {
                 $this->getUserManager()->putUser($_POST['login'], $_POST['password']);
                 $vue = new Vue("Accueil");
                 $vue->generer(array('message'=>"Votre inscription s'est bien déroulée"));
@@ -103,10 +103,8 @@ class ControleurUser {
         }
         return $this->quizManager;
     }
-
     private function isValidPseudo($pseudo) {
-
-        return isset($pseudo) && is_string($pseudo) && $this->getUserManager()->getUser($pseudo) == Null && preg_match("#^[a-zA-Z0-9]{1,20}$#", $pseudo);
+        return isset($pseudo) && is_string($pseudo) && preg_match("#^[a-zA-Z0-9]{1,20}$#", $pseudo);
     }
     private function isValidPassword($password) {
         return isset($password) && is_string($password) && preg_match("#^[a-zA-Z0-9]{1,20}$#", $password);
