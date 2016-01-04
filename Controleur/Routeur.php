@@ -53,7 +53,7 @@ class Routeur {
 				else if ($_GET['action'] == 'users') 
                 {
                     $this->getControleurUser()->users();
-                } 
+                }
                 else throw new Exception("erreur 404");
             } 
             else if (isset($_GET['traitement'])) 
