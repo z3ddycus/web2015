@@ -8,7 +8,7 @@
 		</li>
 	<?php foreach($quiz as $q) {?>
 		<li class="list-group-item">
-			<a href="index.php?quiz=<?php echo $q['id'];?>">
+			<a href="index.php?playQuiz=<?php echo $q['id'];?>">
 				<?php echo $q['titre']; ?> 
 			</a>
 			<a href="index.php?editQuiz=<?php echo $q['id'];?>">
