@@ -105,7 +105,8 @@ class ControleurUser {
     }
 
     private function isValidPseudo($pseudo) {
-        return isset($pseudo) && is_string($pseudo) && preg_match("#^[a-zA-Z0-9]{1,20}$#", $pseudo);
+
+        return isset($pseudo) && is_string($pseudo) && $this->getUserManager()->getUser($pseudo) == Null && preg_match("#^[a-zA-Z0-9]{1,20}$#", $pseudo);
     }
     private function isValidPassword($password) {
         return isset($password) && is_string($password) && preg_match("#^[a-zA-Z0-9]{1,20}$#", $password);
