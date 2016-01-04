@@ -57,7 +57,7 @@ class ControleurUser {
                 $vue->generer(array('message'=>"Votre inscription s'est bien déroulée"));
             } else {
                 $vue = new Vue("Inscription");
-                $vue->generer(array('message'=>"Les champs sont incorrectement remplies"));
+                $vue->generer(array('message'=>"Les champs sont incorrectement remplis"));
             }
         } else {
             $vue = new Vue("Inscription");
