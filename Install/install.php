@@ -6,7 +6,7 @@
   </head>
   <body>
   	<h1>Installation du site</h1>
-	 <form action="traitementInstall.php" id="loginForm"  name="login" role="form" class="form-horizontal" method="post" accept-charset="utf-8">
+	 <form action="traitementInstall.php" id="installForm"  name="login" role="form" class="form-horizontal" method="post" accept-charset="utf-8">
         <div class="form-group">
         	<div class="col-md-8"><label for="Login admin"><input name="login" placeholder="Identifiant" class="form-control" type="text"  id="login" required /></label></div>
         </div> 
