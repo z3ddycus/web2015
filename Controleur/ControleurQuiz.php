@@ -63,7 +63,7 @@ class ControleurQuiz {
         if ($quiz == NULL) {
             throw New Exception("Ce quiz n'existe pas. Tenteriez vous de tricher?");
         }
-        if ($quiz['id_auteur'] != $_SESSION['user']['id']) {
+        if ($_SESSION['user']['admin'] || $quiz['id_auteur'] != $_SESSION['user']['id']) {
             throw New Exception("Ce quiz ne vous appartient pas. Vil faquin");
         }
         $question = $this->getQuizManager()->getQuestion($idQuiz, $numQuestion);
@@ -88,7 +88,7 @@ class ControleurQuiz {
             $quiz = $this->getQuizManager()->getQuizById($idQuiz);
             if ($quiz == NULL) {
                 throw new Exception("Ce quiz n'existe pas.");
-            } else if ($_SESSION['user']['id'] != $quiz['id_auteur']) {
+            } else if ($_SESSION['user']['admin'] || $_SESSION['user']['id'] != $quiz['id_auteur']) {
                 throw new Exception("Ce quiz n'est pas de vous.");
             } else {
                 $id = $idQuiz;
