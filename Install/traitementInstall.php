@@ -68,6 +68,7 @@ class Install {
 
     try {
       // préparation des accès à la base de donnée.
+      unlink('../Modele/bdd.php');
       $fichier = fopen("../Modele/bdd.php", "w");
       if ($fichier == NULL) {
         return false;
