@@ -16,12 +16,12 @@
 <?php
 	function displayChoice($choice, $numReponse, $numQuestion) {
 		if (!empty($choice)) {
-			echo '<input type="radio" value="'.$numReponse.'" name="choice'.$numQuestion.'"/>'.$choice.'</br>';
+			echo '<div class="radio"><label><input type="radio" value="'.$numReponse.'" name="choice'.$numQuestion.'"/>'.$choice.'</label></div>';
 		}
 	}
 
 	function displayQuestion($question, $k) {
-		echo "<div class='question'><p class='intitule'>Question ".$k." : ".$question['intitule']."</p>";
+		echo "<div class='question'><h4><u>Question ".$k."</u> : ".$question['intitule']."</h4>";
 		displayChoice($question['choix1'], 1, $k);
 		displayChoice($question['choix2'], 2, $k);
 		displayChoice($question['choix3'], 3, $k);
@@ -29,10 +29,11 @@
 		echo "</div>";
 	}
 ?>
-<?php $this->titre = "Quiz Constructor - Faire un quiz"; ?>
 
-<h2><?php echo $quiz["titre"]; ?> </h2>
-<p><?php echo $quiz["description"]; ?></p>
+<?php $this->titre = "Quiz Constructor - Jeu"; ?>
+
+<h2><u><?php echo $quiz["titre"]; ?></u></h2>
+<p class="text-muted"><?php echo $quiz["description"]; ?></p>
 
 <?php if (count($questions) > 0) { ?>
 
@@ -56,6 +57,6 @@
 	</form>
 
 <?php } else { ?>
-	<p> Ce quiz ne comporte encore aucune question.<p>
+	<p class="text-muted"> Ce quiz ne comporte encore aucune question.<p>
 <?php } ?>
-<p><?php if(isset ($message)) {echo $message;} ?></p>
+<p class="text-muted"><?php if(isset ($message)) {echo $message;} ?></p>

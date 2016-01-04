@@ -1,18 +1,19 @@
 <?php $this->titre = "Quiz Constructor - ".$user['pseudo']; ?>
 
-<h2>Fiche de <?php echo $user['pseudo']; ?></h2>
+<h2><u>Fiche de <?php echo $user['pseudo']; ?></u></h2>
+
+<h3>Liste des quiz créés</h3>
+
+<p class="text-muted">Cliquez sur un quiz pour y jouer.</p>
 
 <ul class="list-group">
-		<li class="list-group-item">
-			<h3>Liste des quiz de cet utilisateur</h3>
-		</li>
 	<?php foreach($quiz as $q) {?>
 		<li class="list-group-item">
-			<a href="index.php?playQuiz=<?php echo $q['id'];?>">
+			<a href="index.php?playQuiz=<?php echo $q['id'];?>" class="btn btn-default">
 				<?php echo $q['titre']; ?> 
 			</a>
-			<a href="index.php?editQuiz=<?php echo $q['id'];?>">
-				<?php echo "(Editer)"; ?> 
+			<a href="index.php?editQuiz=<?php echo $q['id'];?>" class="pull-right btn btn-primary">
+				<?php echo "Editer"; ?> 
 			</a>
 			</li>
 	<?php } ?>
