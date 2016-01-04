@@ -25,7 +25,7 @@
         	<div class="col-md-8"><label for="loginBdd"><input name="loginBdd" placeholder="Login de bdd" class="form-control" type="text" id="loginBdd" required /></label></div>
         </div> 
         <div class="form-group">
-        	<div class="col-md-8"><label for="PasswordBdd"><input name="passwordBdd" placeholder="Mot de passe de bdd" class="form-control" type="password" id="PasswordBdd" required /></label></div>
+        	<div class="col-md-8"><label for="PasswordBdd"><input name="passwordBdd" placeholder="Mot de passe de bdd" class="form-control" type="password" id="PasswordBdd"/></label></div>
         </div> 
 
         <div class="form-group">

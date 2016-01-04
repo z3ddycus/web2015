@@ -1,9 +1,0 @@
-\select@language {french}
-\contentsline {section}{\numberline {1}Pr\IeC {\'e}sentation du projet}{2}
-\contentsline {section}{\numberline {2}Mode d'emploi}{2}
-\contentsline {section}{\numberline {3}Fonctionnement global}{3}
-\contentsline {subsection}{\numberline {3.1}Routeur}{4}
-\contentsline {subsection}{\numberline {3.2}Base de donn\IeC {\'e}es}{4}
-\contentsline {section}{\numberline {4}Technologie et langages utilis\IeC {\'e}s}{4}
-\contentsline {subsection}{\numberline {4.1}Langages utilis\IeC {\'e}s}{4}
-\contentsline {subsection}{\numberline {4.2}Bootstrap}{5}

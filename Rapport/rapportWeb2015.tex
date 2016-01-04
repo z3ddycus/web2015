@@ -1,4 +1,4 @@
-\documentclass[12pt,titlepage]{article}
+\documentclass[11pt,titlepage]{article}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -27,12 +27,23 @@
 
 L'objectif du projet de Langages Web était de développer une plateforme web permettant de concevoir des quiz et d'y jouer.\\
 Une notion d'utilisateur était demandée : l'administrateur a tous les droits, un utilisateur inscrit et connecté peut créer des quiz et y jouer, et un utilisateur anonyme peut jouer aux quiz déjà créés.\\
-Enfin, pour plus de facilité dans le partage des quiz, il devait être possible de transmettre l'URL d'un quiz. Chaque quiz devait donc posséder son propre URL.
+Enfin, pour plus de facilité dans le partage des quiz, il devait être possible de transmettre l'URL d'un quiz. Chaque quiz devait donc posséder sa propre URL.
 \medbreak
 Notre site est adaptatif (\textit{responsive}) ; il s'adapte à la taille de l'écran, et fonctionne également sur portables.
 
-\section{Mode d'emploi}
 
+\section{Mode d'emploi}
+\subsection{Installation}
+Pour installer le site, il suffit de lancer la page \texttt{Install/install.php}. 
+Si l'utilisateur tente d'accéder au fichier index.php alors que le fichier bdd.php est inexistant, 
+il est immédiatement reporté sur la page d'installation.
+
+La page est constitué d'un formulaire demandant les identifiants pour le compte d'administration ainsi que les identifiants, 
+l'adresse et le nom de la table pour la base de données.
+S'ils sont correctement renseignées, l'utilisateur sera reporté sur la page d'accueil. L'installation est terminée.
+Sinon il sera reportée sur une page avec une liste des raisons pouvant expliquant l'échec de l'installation.
+
+\subsection{Cas d'utilisation}
 Le site possède une barre de menu horizontale, qui sera présente en haut de toutes les pages. Ce menu permet de retourner à l'accueil en cliquant sur \texttt{Quiz Constructor}, d'afficher la liste des quiz en cliquant sur \texttt{Quiz} et d'afficher la liste des utilisateurs inscrits en cliquant sur \texttt{Utilisateurs}. Egalement, si vous n'êtes pas connecté, il vous sera proposé à droite du menu de vous inscrire ou de vous connecter. Si vous êtes connecté, alors vous aurez la possibilité de vous déconnecter ou bien d'accéder à votre page de profil en cliquant sur votre identifiant.
 \medbreak
 Via la page d'accueil, vous pouvez \texttt{Commencer à jouer} et ainsi accéder à la liste de tous les quiz créés.
@@ -52,29 +63,55 @@ Via la liste des utilisateurs, il est possible d'accéder au profil de n'importe
 
 \section{Fonctionnement global}
 
-\begin{figure}[!h]
+La vue se construit d'après une Url selon le schéma suivant.
+
+\begin{figure}[!ht]
 \centering
-\includegraphics[width=16cm]{schemaFonctionnement.jpg}
+\includegraphics[width=12cm]{schemaFonctionnement.jpg}
 \caption{Fonctionnement global}
 \end{figure}
 
 \newpage
 
 \subsection{Routeur}
+Le routeur est l'objet qui permet de rediriger une requête reçue vers le controleur et l'action associée.
+Le fichier index.php est très simple et se contente de demander au routeur d'extraire de la requête attributs \texttt{GET} et \texttt{POST} afin de déterminer quelle action de controleur est demandé.
+Il vérifie aussi les droits d'admission à certaines actions de controleurs en communiquant avec les attributs de session. 
+Prenons l'exemple d'une URL \texttt{index.php?action=login}, 
+le routeur va trouver la commande action=login et demandera au controleur des utilisateurs de lancer sa fonction \texttt{login}.
+
+\subsection{Controleurs}
+Les controleurs sont des classes contenant les actions possibles du site. 
+Que ce soit la création d'un utilisateur, sa connexion, l'affichage de la page d'accueil ou le traitement d'un retour de formulaire,
+chaque action est représentée par une unique fonction d'un controleur spécifique.
+Ce sont les uniques objets qui pourront interrargir avec le modèle de données.
+Il s'agit aussi ici de la dernière couche de sécurité. 
+C'est dans ces classes que l'on surveille la majorité des entrées de l'utilisateur et les redirections vers la page d'erreur.
+
+\subsection{Modèle}
+Les différents modèles sont les interfaces entre les controleurs et la base de données. 
+Chaque action est relativement simple et se compose majoritairement que de requêtes sql.
+Le modèle d'utilisateurs ne permet que d'ajouter des utilisateurs ou récupérer un ou des lignes de la base de données.
+Le but est de ne trouver aucune requête ailleurs que dans ces classes.
 
 \subsection{Base de données}
-
+La base de donnée est composée de trois tables : \texttt{quiz}, \texttt{question} et \texttt{user}.
 \begin{figure}[!h]
 \centering
-\includegraphics[height=15cm]{schemaBdd.jpg}
+\includegraphics[height=10cm]{schemaBdd.jpg}
 \caption{Base de données}
 \end{figure}
+
+\subsection{Vues}
+Chaque vue est représentée par un fichier qui sera appellée par la classe Vue qui intègrera le contenu dans un modèle commun à toutes les vues.
+Le controleur fournit à la vue par le biais d'un tableau associatif les données extraits des modèles.
+C'est cette page, une fois construite, qui sera renvoyée au client.
 
 \section{Technologie et langages utilisés}
 
 \subsection{Langages utilisés}
 
-Nous avons choisi de programmer en PHP, Javascript, HTML et CSS, car ces quatre langages sont des langages web que nous maitrisons bien.\\
+Nous avons choisi de programmer en PHP, Javascript, HTML5 et CSS3, car ces quatre langages sont des langages web que nous maitrisons bien.\\
 Le PHP a l'avantage d'être orienté objet, ce qui nous a permis d'intégrer un patron MVC à notre projet.
 
 \subsection{Bootstrap}
@@ -84,6 +121,17 @@ Bootstrap, ou Twitter Bootstrap, est un ensemble de code HTML et CSS permettant 
 Nous avons choisi de l'utiliser car il permet une grande rapidité de programmation en nous permettant de nous concentrer sur le fond plutôt que la forme. De plus, il permet de créer facilement un site web adaptatif (\texttt{responsive}), comme demandé dans les objectifs bonus du projet.
 \medbreak
 Il fonctionne en indiquant un ou plusieurs classes pour un élément. Il ira alors chercher dans son code CSS la mise en page nécessaire. L'imbrication de bloc \texttt{div} avec des classes est une fonctionnalité importe dans Bootstrap.
+
+\section{Améliorations possibles}
+
+Plusieurs améliorations pourraient être envisageables au niveau du site :
+\begin{itemize}
+\item Actuellement, il n'y a pas de moyen de supprimer des utilisateurs ou des quiz, même pour l'administrateur.
+\item Des statistiques pour chaque quiz (nombre de personnes l'ayant essayé, nombre de personnes l'ayant réussi ...) pourraient être ajoutées.
+\item Actuellement, le routeur interprète les URL afin de les rediriger vers les vues grâce aux attributs \texttt{GET} passés en paramètre dans l'URL.\\ 
+(exemple : \textit{http://localhost/web2015/index.php?action=quiz}).\\
+Une réécriture d'URL pour cacher les attributs \texttt{GET} est envisageable, pour obtenir quelque chose comme \textit{http://localhost/web2015/index.php/quiz}.
+\end{itemize}
 
 \end{document}
 
